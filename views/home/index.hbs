@@ -1,0 +1,10 @@
+<p>HELLO THERE</p>
+
+<form action="/" method="POST">
+<input type="text" name="name" placeholder="Write here"/>
+<input type="submit" value="Send"/>
+</form>
+
+{{#if locals}}
+<p>Nice to have you here, {{locals.name}} on this marvellous {{locals.dayName}}!</p>
+{{/if}}

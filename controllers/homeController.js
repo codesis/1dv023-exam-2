@@ -10,3 +10,5 @@ homeController.indexPost = (req, res, next) => {
   let locals = { name: req.body.name, dayName: moment().format('dddd') }
   res.render('home/index', { locals })
 }
+
+module.exports = homeController
