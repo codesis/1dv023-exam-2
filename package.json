@@ -1,0 +1,22 @@
+{
+  "name": "ek222re-examination-2",
+  "version": "1.0.0",
+  "description": "Assignment-2-EK222RE",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1dv023/ek222re-examination-2.git"
+  },
+  "author": "codesis <ek222re@student.lnu.se>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1dv023/ek222re-examination-2/issues"
+  },
+  "homepage": "https://github.com/1dv023/ek222re-examination-2#readme",
+  "dependencies": {
+    "npm": "^6.8.0"
+  }
+}
