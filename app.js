@@ -26,36 +26,54 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(logger('dev'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
-// setup and use session middleware (TO BE CHANGED!)
+// setup and use session middleware
 const sessionOptions = {
-  name: 'name of keyboard cat',
-  secret: 'keyboard cat',
+  name: 'server session',
+  secret: 'k1TtYm40WM3ow',
   resave: false,
   saveUninitialized: false,
   cookie: {
+    secure: false,
+    httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 // 1 day
   }
 }
 app.use(session(sessionOptions))
-// middleware to be executed before the routes
+// Flash middleware
 app.use((req, res, next) => {
-  res.locals.flash = req.session.flash
-  delete req.session.flash
-
+  if (req.session.flash) {
+    res.locals.flash = req.session.flash
+    delete req.session.flash
+  }
+  if (req.session.loggedin) {
+    res.locals.loggedin = req.session.loggedin
+  }
   next()
 })
 // routes
 app.use('/', require('./routes/homeRouter'))
-app.use('/snippets', require('./routes/createSnippetRouter'))
+app.use('/', require('./routes/createSnippetRouter'))
+app.use('/', require('./routes/newUserRouter'))
 // catch 404
 app.use((req, res, next) => {
   res.status(404)
   res.sendFile(path.join(__dirname, 'public', '404.html'))
 })
-// error handler
+// catch 400
 app.use((err, req, res, next) => {
-  res.status(err.status || 500)
-  res.send(err.message || 'Internal Server Error')
+  if (err.status !== 400) {
+    return next(err)
+  }
+  console.log(err.stack)
+  res.status(400)
+  res.sendFile(path.join(__dirname, 'public', '400.html'))
 })
+// catch 500
+app.use((err, req, res, next) => {
+  console.log(err.stack)
+  res.status(500)
+  res.sendFile(path.join(__dirname, 'public', '500.html'))
+})
+
 // listen to provided port
 app.listen(3000, () => console.log('Server running at http://localhost:3000' + '\nPress ctrl+c to terminate'))
