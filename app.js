@@ -17,7 +17,19 @@ mongoose.connect().catch(error => {
 })
 // view engine setup
 app.engine('hbs', hbs.express4({
-  defaultLayout: path.join(__dirname, 'views', 'layouts', 'default')
+  partialsDir: path.join(__dirname, 'views', 'partials'),
+  defaultLayout: path.join(__dirname, 'views', 'layouts', 'default'),
+
+  onCompile: function (exhbs, source, filename) {
+    let options
+    if (filename && filename.indexOf('partials') > -1) {
+      options = { preventIndent: true }
+    }
+    return exhbs.handlebars.compile(source, options)
+  }
+}))
+app.engine('hbs', hbs.express4({
+  partialsDir: path.join(__dirname, 'views')
 }))
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'views'))
@@ -45,8 +57,7 @@ app.use((req, res, next) => {
 })
 // routes
 app.use('/', require('./routes/homeRouter'))
-app.use('/', require('./routes/createSnippetRouter'))
-app.use('/', require('./routes/newUserRouter'))
+app.use('/snippets', require('./routes/createSnippetRouter'))
 // catch 404
 app.use((req, res, next) => {
   res.status(404)

@@ -1,0 +1,12 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <ul>
+        {{#if session.loggedin}}
+        <li>Welcome {{session.user.username}}</li>
+        <li><a href="signout/">Sign out</a></li>
+        {{else}}
+        <li><a href="/">Sign in</a></li>
+        {{/if}}
+        <li><a href="/create">Create</a></li>
+        <li><a href="/view">View snippets</a></li>
+    </ul>
+</div>

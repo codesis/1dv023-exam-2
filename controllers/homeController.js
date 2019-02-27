@@ -3,9 +3,9 @@
 const moment = require('moment')
 const homeController = {}
 
-// indexGET
+// Render index page
 homeController.index = (req, res, next) => res.render('home/index')
-// indexPOST
+// Render login for user
 homeController.indexPost = (req, res, next) => {
   let locals = { name: req.body.name, dayName: moment().format('dddd') }
   res.render('home/index', { locals })
