@@ -5,7 +5,7 @@
 const mongoose = require('mongoose')
 
 // DISCLAIMER: This is NOT how it is supposed to be but for this course it is OK.
-const CONNECTION_STRING = 'mongodb://testUser:<1234>@cluster0-shard-00-00-wz1vl.mongodb.net:27017,cluster0-shard-00-01-wz1vl.mongodb.net:27017,cluster0-shard-00-02-wz1vl.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true'
+const CONNECTION_STRING = 'mongodb+srv://Admin:<1234abcd>@cluster0-wz1vl.mongodb.net/test?retryWrites=true'
 
 // Establish connection to a database and @returns Promise
 module.exports.connect = async () => {
