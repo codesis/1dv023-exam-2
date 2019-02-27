@@ -5,7 +5,7 @@
 const mongoose = require('mongoose')
 
 // DISCLAIMER: This is NOT how it is supposed to be but for this course it is OK.
-const CONNECTION_STRING = 'mongodb+srv://Admin:<1234abcd>@cluster0-wz1vl.mongodb.net/test?retryWrites=true'
+const CONNECTION_STRING = 'mongodb+srv://Admin:1234abcd@cluster0-wz1vl.mongodb.net/StickySnippetsDatabase?retryWrites=true'
 
 // Establish connection to a database and @returns Promise
 module.exports.connect = async () => {

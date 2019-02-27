@@ -57,4 +57,4 @@ app.use((err, req, res, next) => {
   res.send(err.message || 'Internal Server Error')
 })
 // listen to provided port
-app.listen(3000, () => console.log('Server running at http://localhost:3000'))
+app.listen(3000, () => console.log('Server running at http://localhost:3000' + '\nPress ctrl+c to terminate'))
