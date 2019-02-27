@@ -1,10 +1,12 @@
-<p>HELLO THERE</p>
-
-<form action="/" method="POST">
-<input type="text" name="name" placeholder="Write here"/>
-<input type="submit" value="Send"/>
+<h1>HELLO THERE</h1>
+<div class="signin">
+<p>Sign in</p>
+<form action="/login/" method="POST">
+<input type="text" name="username" placeholder="Username"/>
+<br>
+<input type="password" name="password" value="" placeholder="Password"/>
+<br>
+<button class="btn btn-default">Sign in</button>
+<a href="/newuser" class="btn btn-info" role="button">New user</a>
 </form>
-
-{{#if locals}}
-<p>Nice to have you here, {{locals.name}}, on this marvellous {{locals.dayName}}!</p>
-{{/if}}
+</div>

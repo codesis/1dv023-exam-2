@@ -45,7 +45,8 @@ app.use((req, res, next) => {
 })
 // routes
 app.use('/', require('./routes/homeRouter'))
-app.use('/snippets', require('./routes/createSnippetRouter'))
+app.use('/', require('./routes/createSnippetRouter'))
+app.use('/', require('./routes/newUserRouter'))
 // catch 404
 app.use((req, res, next) => {
   res.status(404)
