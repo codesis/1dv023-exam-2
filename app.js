@@ -2,7 +2,7 @@
 
 const express = require('express')
 const path = require('path')
-const hbs = require('express-hbs')
+const hbs = require('express-handlebars')
 const session = require('express-session')
 const logger = require('morgan')
 
@@ -16,22 +16,11 @@ mongoose.connect().catch(error => {
   process.exit(1)
 })
 // view engine setup
-app.engine('hbs', hbs.express4({
-  partialsDir: path.join(__dirname, 'views', 'partials'),
-  defaultLayout: path.join(__dirname, 'views', 'layouts', 'default'),
-
-  onCompile: function (exhbs, source, filename) {
-    let options
-    if (filename && filename.indexOf('partials') > -1) {
-      options = { preventIndent: true }
-    }
-    return exhbs.handlebars.compile(source, options)
-  }
+app.engine('.hbs', hbs({
+  defaultLayout: 'main',
+  extname: '.hbs'
 }))
-app.engine('hbs', hbs.express4({
-  partialsDir: path.join(__dirname, 'views')
-}))
-app.set('view engine', 'hbs')
+app.set('view engine', '.hbs')
 app.set('views', path.join(__dirname, 'views'))
 // additional middleware
 app.use(logger('dev'))
