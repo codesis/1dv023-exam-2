@@ -39,7 +39,12 @@ const sessionOptions = {
   }
 }
 app.use(session(sessionOptions))
-// Flash middleware
+// Middleware
+app.use((req, res, next) => {
+  res.locals.session = req.session
+  next()
+})
+// Flash messages
 app.use((req, res, next) => {
   if (req.session.flash) {
     res.locals.flash = req.session.flash
