@@ -57,12 +57,12 @@ app.use((req, res, next) => {
 })
 // routes
 app.use('/', require('./routes/homeRouter'))
-app.use('/', require('./routes/createSnippetRouter'))
-app.use('/', require('./routes/newUserRouter'))
+app.use('/snippets', require('./routes/snippetRouter'))
+app.use('/newuser', require('./routes/newUserRouter'))
 // catch 404
 app.use((req, res, next) => {
   res.status(404)
-  res.sendFile(path.join(__dirname, 'public', '404.html'))
+  res.render('errors/404')
 })
 // catch 400
 app.use((err, req, res, next) => {
@@ -70,14 +70,12 @@ app.use((err, req, res, next) => {
     return next(err)
   }
   console.log(err.stack)
-  res.status(400)
-  res.sendFile(path.join(__dirname, 'public', '400.html'))
+  res.status(400).render('errors/400')
 })
 // catch 500
 app.use((err, req, res, next) => {
   console.log(err.stack)
-  res.status(500)
-  res.sendFile(path.join(__dirname, 'public', '500.html'))
+  res.status(500).render('errors/500')
 })
 
 // listen to provided port

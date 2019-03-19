@@ -3,7 +3,7 @@
 const express = require('express')
 const router = express.Router()
 
-const controller = require('../controllers/createSnippetController')
+const controller = require('../controllers/snippetController')
 
 // GET
 router.get('/', controller.index)
