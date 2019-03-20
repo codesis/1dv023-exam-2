@@ -1,11 +1,9 @@
 <div class="snippets">
     <h2>Create snippets</h2>
-    <form action="/create" method="POST">
-    <label>Title: </label>
-    <input type="text" name="title"/>
-    <br>
-    <textarea name="snippet" placeholder="Snippet"></textarea>
-    <br>
-    <button type="submit" class="btn btn-success">Save</button>
-    </form>
+<form method="post" action="/snippets/create">
+  <div class="form-group">
+    <input type="text" class="form-control" name="description" placeholder="Enter your snippet here" required="required" autofocus="autofocus" />
+  </div>
+  <button type="submit" class="btn btn-lg btn-primary">Save</button>
+</form>
 </div>

@@ -1,6 +1,6 @@
 'use strict'
 
-const SnippetDB = require('../models/createSnippet')
+const Snippet = require('../models/createSnippet')
 
 const snippetController = {}
 
@@ -8,14 +8,14 @@ const snippetController = {}
 snippetController.index = async (req, res, next) => {
   try {
     const locals = {
-      createSnippets: (await SnippetDB.find({}))
+      createSnippets: (await Snippet.find({}))
         .map(createSnippet => ({
           id: createSnippet._id,
           description: createSnippet.description,
           done: createSnippet.done
         }))
     }
-    res.render('snippets/view', { locals })
+    res.render('snippets/index', { locals })
   } catch (error) {
     next(error)
   }
@@ -39,7 +39,7 @@ snippetController.create = async (req, res, next) => {
 // create POST
 snippetController.createSnippet = async (req, res, next) => {
   try {
-    const createSnippet = new SnippetDB({
+    const createSnippet = new Snippet({
       description: req.body.description,
       done: req.body.done
     })
@@ -55,7 +55,7 @@ snippetController.createSnippet = async (req, res, next) => {
 // edit GET
 snippetController.edit = async (req, res, next) => {
   try {
-    const createSnippet = await SnippetDB.findOne({ _id: req.params.id })
+    const createSnippet = await Snippet.findOne({ _id: req.params.id })
     const locals = {
       id: createSnippet._id,
       description: createSnippet.description,
@@ -70,7 +70,7 @@ snippetController.edit = async (req, res, next) => {
 // edit POST
 snippetController.editSnippet = async (req, res, next) => {
   try {
-    const result = await SnippetDB.updateOne({ _id: req.body.id }, {
+    const result = await Snippet.updateOne({ _id: req.body.id }, {
       description: req.body.description,
       done: req.body.done === 'on'
     })
@@ -91,7 +91,7 @@ snippetController.editSnippet = async (req, res, next) => {
 // delete GET
 snippetController.delete = async (req, res, next) => {
   try {
-    const createSnippet = await SnippetDB.findOne({ _id: req.params.id })
+    const createSnippet = await Snippet.findOne({ _id: req.params.id })
     const locals = {
       id: createSnippet._id,
       description: createSnippet.description,
@@ -105,7 +105,7 @@ snippetController.delete = async (req, res, next) => {
 // delete POST
 snippetController.deleteSnippet = async (req, res, next) => {
   try {
-    await SnippetDB.deleteOne({ _id: req.body.id })
+    await Snippet.deleteOne({ _id: req.body.id })
 
     req.session.flash = { type: 'success', text: 'The Snippet was successfully removed.' }
     res.redirect('.')

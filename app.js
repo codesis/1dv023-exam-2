@@ -21,7 +21,6 @@ app.engine('.hbs', hbs({
   extname: '.hbs'
 }))
 app.set('view engine', '.hbs')
-app.set('views', path.join(__dirname, 'views'))
 // additional middleware
 app.use(logger('dev'))
 app.use(express.urlencoded({ extended: false }))
@@ -39,12 +38,7 @@ const sessionOptions = {
   }
 }
 app.use(session(sessionOptions))
-// Middleware
-app.use((req, res, next) => {
-  res.locals.session = req.session
-  next()
-})
-// Flash messages
+// Middleware + Flash messages
 app.use((req, res, next) => {
   if (req.session.flash) {
     res.locals.flash = req.session.flash
@@ -62,21 +56,18 @@ app.use('/newuser', require('./routes/newUserRouter'))
 // catch 404
 app.use((req, res, next) => {
   res.status(404)
-  res.render('errors/404')
+  res.sendFile(path.join(__dirname, 'errors', '404.html'))
 })
 // catch 400
-app.use((err, req, res, next) => {
-  if (err.status !== 400) {
-    return next(err)
-  }
-  console.log(err.stack)
-  res.status(400).render('errors/400')
-})
-// catch 500
-app.use((err, req, res, next) => {
-  console.log(err.stack)
-  res.status(500).render('errors/500')
+app.use((req, res, next) => {
+  res.status(400)
+  res.sendFile(path.join(__dirname, 'errors', '400.html'))
 })
 
+// error handler
+app.use((err, req, res, next) => {
+  res.status(err.status || 500)
+  res.send(err.message || 'Internal Server Error')
+})
 // listen to provided port
 app.listen(3000, () => console.log('Server running at http://localhost:3000' + '\nPress ctrl+c to terminate'))
