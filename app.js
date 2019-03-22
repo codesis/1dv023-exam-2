@@ -50,9 +50,9 @@ app.use((req, res, next) => {
   next()
 })
 // routes
-app.use('/', require('./routes/homeRouter'))
-app.use('/snippets', require('./routes/snippetRouter'))
-app.use('/newuser', require('./routes/newUserRouter'))
+app.use('/', require('./routes/home'))
+app.use('/snippets', require('./routes/snippets'))
+app.use('/newuser', require('./routes/newUser'))
 // catch 404
 app.use((req, res, next) => {
   res.status(404)

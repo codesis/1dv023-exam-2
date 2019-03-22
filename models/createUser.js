@@ -5,36 +5,25 @@ const bcrypt = require('bcrypt')
 
 // Mongoose model for user
 const userSchema = mongoose.Schema({
-  username: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
   email: { type: String, required: true },
   password: { type: String, required: true }
 })
 // Using a pre-hook, salt and hash the user's password
-userSchema.pre('save', function (next) {
+userSchema.pre('save', async function (next) {
   let user = this
 
-  bcrypt.genSalt(10, function (err, salt) {
-    if (err) {
-      return next(err)
-    }
-    bcrypt.hash(user.password, salt, null, function (err, hash) {
-      if (err) {
-        return next(err)
-      }
-      user.password = hash
-
-      next()
-    })
-  })
+  if (user.isModified('password') || user.isNew) {
+    let hashPwd = await bcrypt.hash(user.password, 12)
+    user.password = hashPwd
+  }
+  next()
 })
 // Comparing passwords to authenticate
-userSchema.methods.comparePassword = function (pass, callback) {
-  bcrypt.compare(pass, this.password, function (err, res) {
-    if (err) {
-      return callback(err)
-    } callback(null, res)
-  })
+userSchema.methods.comparePassword = function (candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password)
 }
+
 // Create model by using the schema
 const Users = mongoose.model('User', userSchema)
 
