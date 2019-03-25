@@ -50,18 +50,16 @@ app.use((req, res, next) => {
   next()
 })
 // routes
-app.use('/', require('./routes/home'))
-app.use('/snippets', require('./routes/snippets'))
-app.use('/newuser', require('./routes/newUser'))
+app.use('/', require('./routes/home.js'))
+app.use('/', require('./routes/snippets.js'))
+app.use('/', require('./routes/register.js'))
 // catch 404
-app.use((req, res, next) => {
-  res.status(404)
-  res.sendFile(path.join(__dirname, 'errors', '404.html'))
+app.use((req, res) => {
+  res.status(404).render('errors/404.html')
 })
 // catch 400
-app.use((req, res, next) => {
-  res.status(400)
-  res.sendFile(path.join(__dirname, 'errors', '400.html'))
+app.use((req, res) => {
+  res.status(400).render('errors/403.html')
 })
 
 // error handler
