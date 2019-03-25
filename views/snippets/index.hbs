@@ -1,33 +1,18 @@
-<h1>
-    <span class="far fa-list-alt"></span> Snippets
-</h1>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Done</th>
-            <th>Description</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#if locals.createSnippet.length }}
-        {{#each locals.createSnippet}}
-        <tr>
-            <td class="text-center text-primary"><span class="far fa-{{#if this.done }}check-square{{else}}square{{/if}}"></span></td>
-            <td class="w-100 {{#if this.done }} text-muted {{/if}}">{{this.description}}</td>
-            <td>
-                <a href="/snippet/edit/{{this.id}}"><span class="far fa-edit"></span></a>
-                <a href="/snippet/delete/{{this.id}}"><span class="far fa-trash-alt"></span></a>
-            </td>
-        </tr>
+{{#if snippets }}
+    <div class="row">
+        {{#each snippets }}
+            <div class="show">
+                <h4>{{this.title}}</h4>
+                <pre><code>{{this.snippet}}</code></pre>
+                <form class="delete-button" action="/delete/{{id}}" method="post">
+                <a class="btn btn-primary" href="/update/{{id}}">Update</a>
+                <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+                <span>Created by: {{this.username}}</span>
+                <br>
+                <span>Posted: {{this.createdAt}}</span>
+                <br>
+            </div>  
         {{/each}}
-        {{else}}
-        <tr>
-            <td colspan="3" class="text-center text-danger">
-                No snippets to display.
-            </td>
-        </tr>
-        {{/if}}
-    </tbody>
-</table>
+    </div>
+{{/if}}
