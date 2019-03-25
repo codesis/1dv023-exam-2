@@ -20,6 +20,7 @@
   "homepage": "https://github.com/1dv023/ek222re-examination-2#readme",
   "dependencies": {
     "bcrypt": "^3.0.4",
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.2",
     "express-hbs": "^2.0.2",
