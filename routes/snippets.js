@@ -5,10 +5,10 @@ const router = express.Router()
 
 const controller = require('../controllers/snippetController')
 
-// GET
-router.get('/', controller.index)
+router.route('/snippets')
+  .get(controller.index)
 // GET, POST /create
-router.route('/create')
+router.route('/snippets/create')
   .get(controller.create)
   .post(controller.createSnippet)
 // GET, POST /edit

@@ -61,7 +61,7 @@ snippetController.edit = async (req, res, next) => {
       description: createSnippet.description,
       done: createSnippet.done
     }
-    res.render('snippets/edit', { locals })
+    res.render('snippets/update', { locals })
   } catch (error) {
     req.session.flash = { type: 'danger', text: error.message }
     res.redirect('.')
@@ -85,7 +85,7 @@ snippetController.editSnippet = async (req, res, next) => {
     res.redirect('.')
   } catch (error) {
     req.session.flash = { type: 'danger', text: error.message }
-    res.redirect(`./edit/${req.body.id}`)
+    res.redirect(`./update/${req.body.id}`)
   }
 }
 // delete GET

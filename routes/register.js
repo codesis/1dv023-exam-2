@@ -15,6 +15,7 @@ router.route('/register').get(function (req, res) {
   // Creating a new user from input
   let user = new Users({
     username: req.body.username,
+    name: req.body.name,
     email: req.body.email,
     password: req.body.password
   })
