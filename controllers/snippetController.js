@@ -61,26 +61,26 @@ snippetController.createSnippet = async (req, res, next) => {
   }
 }
 
-// edit GET
-snippetController.edit = async (req, res, next) => {
+// update GET
+snippetController.update = async (req, res, next) => {
   try {
     const snippets = await Snippets.findOne({ _id: req.params.id })
     const locals = {
       id: snippets._id,
-      description: snippets.description,
-      done: snippets.done
+      newSnippet: snippets.snippet,
+      title: snippets.title
     }
-    res.render('snippets/update', { locals })
+    res.render('snippets/update', locals)
   } catch (error) {
     req.session.flash = { type: 'danger', text: error.message }
     res.redirect('.')
   }
 }
-// edit POST
-snippetController.editSnippet = async (req, res, next) => {
+// update POST
+snippetController.updateSnippet = async (req, res, next) => {
   try {
     const result = await Snippets.updateOne({ _id: req.body.id }, {
-      description: req.body.description,
+      snippet: req.body.snippet,
       done: req.body.done === 'on'
     })
     if (result.nModified === 1) {
@@ -99,28 +99,37 @@ snippetController.editSnippet = async (req, res, next) => {
 }
 // delete GET
 snippetController.delete = async (req, res, next) => {
-  try {
-    const snippets = await Snippets.findOne({ _id: req.params.id })
-    const locals = {
-      id: snippets._id,
-      description: snippets.description,
-      done: snippets.done
+  if (req.session.loggedin) {
+    Snippets.findOne({ _id: req.params.id }, function (err, item) {
+      if (err) {
+        throw err
+      }
+      // Make sure snippet belongs to logged in user
+      if (item.username === req.session.username) {
+        Snippets.findOneAndRemove({ _id: req.params.id }, function (err) {
+          if (err) {
+            next(err)
+          }
+          req.session.flash = {
+            type: 'success',
+            message: 'Snippet was deleted'
+          }
+          res.redirect('/snippets')
+        })
+      } else {
+        req.session.flash = {
+          type: 'danger',
+          message: 'This is not your snippet'
+        }
+        res.redirect('/snippets')
+      }
+    })
+  } else {
+    req.session.flash = {
+      type: 'danger',
+      message: 'You need to be logged in to delete your snippet'
     }
-    res.render('snippets/delete', { locals })
-  } catch (error) {
-    req.session.flash = { type: 'danger', text: error.message }
-  }
-}
-// delete POST
-snippetController.deleteSnippet = async (req, res, next) => {
-  try {
-    await Snippets.deleteOne({ _id: req.body.id })
-
-    req.session.flash = { type: 'success', text: 'The Snippet was successfully removed.' }
-    res.redirect('.')
-  } catch (error) {
-    req.session.flash = { type: 'danger', text: error.message }
-    req.redirect(`./delete/${req.body.id}`)
+    res.redirect('/snippets')
   }
 }
 

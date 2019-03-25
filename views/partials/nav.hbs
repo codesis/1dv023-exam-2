@@ -1,6 +1,6 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <ul>
-        {{#if session.loggedin}}
+        {{#if session.signedin}}
         <li>Welcome {{session.user.username}}</li>
         <li><a href="signout/">Sign out</a></li>
         {{else}}
