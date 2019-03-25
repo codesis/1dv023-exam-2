@@ -28,7 +28,7 @@ snippetController.create = async (req, res, next) => {
     username: req.session.user.username,
     snippet: ''
   }
-  if (req.session.loggedin) {
+  if (req.session.signedin) {
     res.render('snippets/create', { locals })
   } else {
     req.session.flash = {
@@ -99,12 +99,12 @@ snippetController.updateSnippet = async (req, res, next) => {
 }
 // delete GET
 snippetController.delete = async (req, res, next) => {
-  if (req.session.loggedin) {
+  if (req.session.signedin) {
     Snippets.findOne({ _id: req.params.id }, function (err, item) {
       if (err) {
         throw err
       }
-      // Make sure snippet belongs to logged in user
+      // Make sure snippet belongs to signed in user
       if (item.username === req.session.username) {
         Snippets.findOneAndRemove({ _id: req.params.id }, function (err) {
           if (err) {
@@ -127,7 +127,7 @@ snippetController.delete = async (req, res, next) => {
   } else {
     req.session.flash = {
       type: 'danger',
-      message: 'You need to be logged in to delete your snippet'
+      message: 'You need to be signed in to delete your snippet'
     }
     res.redirect('/snippets')
   }

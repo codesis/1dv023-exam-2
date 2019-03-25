@@ -43,11 +43,11 @@ router.post('/signin', function (req, res) {
         } else {
           req.session.flash = {
             type: 'success',
-            message: 'Logged in'
+            message: 'Welcome, ' + req.body.username + '! You have signed in!'
           }
           req.session.user = user
           req.session.username = req.body.username
-          req.session.loggedin = true
+          req.session.signedin = true
           res.redirect('../snippets')
         }
       })

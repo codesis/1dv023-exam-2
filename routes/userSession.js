@@ -39,7 +39,7 @@ router.post('/', function (req, res) { // login user
         } else {
           req.session.flash = {
             type: 'success',
-            message: 'You are logged in!'
+            message: 'You are signed in!'
           }
           req.session.user = user
           req.session.username = req.body.username

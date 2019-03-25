@@ -50,8 +50,8 @@ app.use((req, res, next) => {
     res.locals.flash = req.session.flash
     delete req.session.flash
   }
-  if (req.session.loggedin) {
-    res.locals.loggedin = req.session.loggedin
+  if (req.session.signedin) {
+    res.locals.signedin = req.session.signedin
   }
   next()
 })

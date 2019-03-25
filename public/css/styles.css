@@ -20,8 +20,9 @@ body {
 pre {
     font: 14px Courier, 'New Courier', monospace;  
     font-weight: bold;  
-    background-color: #000000;
-    color: green;
+    width: 55%;
+    background-color: #ac90b8;
+    color: rgb(75, 18, 62);
 }
 
 .view {
@@ -70,20 +71,20 @@ pre {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: rgb(134, 133, 133);
+    background-color: rgb(119, 71, 107);
 }
 
 .navbar li {
     float: left;
     display: block;
-    color: rgb(116, 55, 110);
+    color: rgb(202, 148, 197);
     text-align: center;
     padding: 14px 16px;
 }
 
 .navbar li a {
     display: block;
-    color: rgb(102, 46, 107);
+    color: rgb(171, 126, 175);
     text-align: center;
     margin-left: 15px;
     margin-top: 0;
