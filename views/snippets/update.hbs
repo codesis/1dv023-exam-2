@@ -1,14 +1,10 @@
+<div class="snippets">
 <h1>
-  <span class="far fa-edit"></span> Edit snippet
+  <span class="far fa-edit"></span> Update Snippet
 </h1>
-
-<form method="post" action="/snippets/edit">
-  <input type="hidden" name="id" value="{{locals.id}}" />
-  <div class="form-group">
-    <input type="text" class="form-control" name="description" placeholder="Update your snippet here" value="{{locals.description}}" required="required" autofocus="autofocus" />
-  </div>
-  <div class="form-group">
-    <input type="checkbox" class="form-control" name="done" {{#if locals.done }} checked="checked" {{/if}} />
-  </div>
-  <button type="submit" class="btn btn-lg btn-primary">Update</button>
+<form method="post" action="/snippets/update">
+  <input name="id" value="{{this.title}}" />
+    <textarea name="snippet" placeholder="{{this.newSnippet}}" required="required" autofocus="autofocus"></textarea> 
+  <button type="submit" class="btn btn-lg btn-primary" >Update</button>
 </form>
+</div>

@@ -13,7 +13,7 @@ router.route('/snippets/create')
   .post(controller.createSnippet)
 // GET, POST /update
 router.get('/update/:id', controller.update)
-router.post('/update', controller.updateSnippet)
+router.post('/update/:id', controller.updateSnippet)
 // GET, POST /delete
 router.get('/delete/:id', controller.delete)
 router.post('/delete/:id', controller.delete)
