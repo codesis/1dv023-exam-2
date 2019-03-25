@@ -1,6 +1,6 @@
 'use strict'
 
-const Snippet = require('../models/createSnippet')
+const Snippet = require('../models/snippetModel')
 
 const snippetController = {}
 
@@ -38,18 +38,20 @@ snippetController.create = async (req, res, next) => {
 }
 // create POST
 snippetController.createSnippet = async (req, res, next) => {
-  try {
-    const createSnippet = new Snippet({
-      description: req.body.description,
-      done: req.body.done
-    })
-    await createSnippet.save()
+  if (res.render('snippets/create')) {
+    try {
+      const createSnippet = new Snippet({
+        description: req.body.description,
+        done: req.body.done
+      })
+      await createSnippet.save()
 
-    req.session.flash = { type: 'success', text: 'Snippet was created successfully.' }
-    res.redirect('.')
-  } catch (error) {
-    req.session.flash = { type: 'danger', text: error.message }
-    res.redirect('./create')
+      req.session.flash = { type: 'success', text: 'Snippet was created successfully.' }
+      res.redirect('.')
+    } catch (error) {
+      req.session.flash = { type: 'danger', text: error.message }
+      res.redirect('./create')
+    }
   }
 }
 // edit GET
