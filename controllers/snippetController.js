@@ -10,9 +10,11 @@ snippetController.index = async (req, res, next) => {
     const locals = {
       createSnippets: (await Snippet.find({}))
         .map(createSnippet => ({
-          id: createSnippet._id,
-          description: createSnippet.description,
-          done: createSnippet.done
+          username: createSnippet.username,
+          title: createSnippet.title,
+          snippet: createSnippet.snippet,
+          createdAt: createSnippet.createdAt,
+          id: createSnippet._id
         }))
     }
     res.render('snippets/index', { locals })
@@ -38,22 +40,28 @@ snippetController.create = async (req, res, next) => {
 }
 // create POST
 snippetController.createSnippet = async (req, res, next) => {
-  if (res.render('snippets/create')) {
-    try {
-      const createSnippet = new Snippet({
-        description: req.body.description,
-        done: req.body.done
+  try {
+    let createSnippet = new Snippet({
+      username: req.session.user.username,
+      title: req.body.title,
+      snippet: req.body.snippet
+    })
+    await createSnippet.save()
+      .then(function () {
+        req.session.flash = {
+          type: 'success',
+          message: 'Snippet was created successfully.' }
       })
-      await createSnippet.save()
 
-      req.session.flash = { type: 'success', text: 'Snippet was created successfully.' }
-      res.redirect('.')
-    } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('./create')
-    }
+    res.redirect('.')
+  } catch (error) {
+    req.session.flash = {
+      type: 'danger',
+      message: error.message }
+    res.redirect('./create')
   }
 }
+
 // edit GET
 snippetController.edit = async (req, res, next) => {
   try {

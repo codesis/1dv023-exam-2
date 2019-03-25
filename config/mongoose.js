@@ -11,12 +11,12 @@ const CONNECTION_STRING = 'mongodb+srv://Admin:1234abcd@cluster0-wz1vl.mongodb.n
 module.exports.connect = async () => {
   mongoose.connection.on('connected', () => console.log('Mongoose connection is open.'))
   mongoose.connection.on('error', err => console.error(`Mongoose connection error has occurred: ${err}`))
-  mongoose.connection.on('disconnected', () => console.log('Mongoose connection is disconnected.'))
+  mongoose.connection.on('disconnected', () => console.log('Mongoose connection has disconnected.'))
 
   // if the Node process ends, close the connection
   process.on('SIGINT', () => {
     mongoose.connection.close(() => {
-      console.log('Mongoose connection is dc due to application termination.')
+      console.log('Mongoose connection has disconnected due to application termination.')
       process.exit(0)
     })
   })

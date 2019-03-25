@@ -9,9 +9,12 @@ const snippetSchema = new mongoose.Schema({
   username: { type: String },
   title: { type: String, required: true },
   snippet: { type: String, required: true },
-  posted: { type: Date, required: true, default: Date.now }
+  createdAt: {
+    type: Date,
+    required: true,
+    default: Date.now }
 })
 // Model using the schema
-const Snippets = mongoose.model('Snippet', snippetSchema)
+const Snippets = mongoose.model('Snippets', snippetSchema)
 
 module.exports = Snippets
