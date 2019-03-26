@@ -67,7 +67,7 @@ snippetController.update = async (req, res, next) => {
   const locals = {
     username: snippets.username,
     id: snippets._id,
-    newSnippet: snippets.snippet,
+    snippet: snippets.snippet,
     title: snippets.title
   }
   if (req.session.signedin) {
@@ -84,7 +84,7 @@ snippetController.update = async (req, res, next) => {
 // update POST
 snippetController.updateSnippet = function (req, res) {
   if (req.session.signedin) {
-    Snippets.updateOne({ _id: req.params.id }, { snippet: req.body.newSnippet }, (err, updatedSnippet, next) => {
+    Snippets.updateOne({ _id: req.params.id }, { snippet: req.body.snippet }, (err, updatedSnippet, next) => {
       if (err) {
         next(err)
       }
