@@ -43,7 +43,6 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24 // 1 day
   }
 }))
-// app.use(session(sessionOptions))
 // Middleware + Flash messages
 app.use((req, res, next) => {
   if (req.session.flash) {
@@ -63,7 +62,7 @@ app.use('/', require('./routes/register.js'))
 app.use((req, res) => {
   res.status(404).render('errors/404')
 })
-// catch 400
+// catch 403
 app.use((req, res) => {
   res.status(400).render('errors/403')
 })

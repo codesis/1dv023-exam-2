@@ -24,7 +24,7 @@ html {
 
 body {
     padding-top: 0;
-    background-color: pink;
+    background-image: url(../images/bg.jpg);
 }
 
 .row {
@@ -34,17 +34,42 @@ body {
 pre {
     font: 14px Courier, 'New Courier', monospace;  
     font-weight: bold;  
-    width: 55%;
-    background-color: #ac90b8;
+    width: 75%;
+    margin-left: 12%;
+    background-color: #ffffff;
+    border-radius: 6px;
+    padding: 8px;
     color: rgb(75, 18, 62);
+    white-space: initial;
+    text-align: justify;
+}
+#snippet-title {
+    font-weight: bold;
+    font-size: 20px;
+    color: #772877;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#sticky-title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: underline;
+    font-family: 'Lucida Sans';
+    color: #974485;
+}
+#welcome {
+    text-align: center;
 }
 
 .view {
-    background-color: rgba(219, 209, 209, 0.459);
-    border: 2px solid rgb(109, 106, 106);
+    background-color: rgba(240, 190, 227, 0.767);
+    border: 2px solid rgb(112, 33, 84);
     border-radius: 15px;
     padding: 10px;
+    width: 75%;
+    margin-left: 10%;
     margin-bottom: 5px;
+    text-align: center;
 }
 
 .register, .signin {
@@ -127,4 +152,20 @@ pre {
     text-align: center;
     font-weight: bold;
     font-size: 20px;
+}
+.update-button, .delete-btn {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 5px;
+    padding: 5px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border-radius: 5px;
+}
+.update-button {
+    background-color: rgb(255, 0, 170);
+    color: white;
+    text-decoration: none;
+}
+.delete-btn {
+    background-color: red;
 }

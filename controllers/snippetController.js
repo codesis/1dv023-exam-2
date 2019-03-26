@@ -78,7 +78,7 @@ snippetController.update = async (req, res, next) => {
       type: 'danger',
       message: 'This is not your snippet!'
     }
-    res.redirect('/')
+    res.redirect('/snippets')
   }
 }
 

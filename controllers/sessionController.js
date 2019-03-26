@@ -37,6 +37,7 @@ sessionController.authorization = async (req, res) => { // login user
             type: 'success',
             message: 'You are signed in!'
           }
+          req.render('partials/nav', req.session.username)
           req.session.user = user
           req.session.username = req.body.username
           req.session.signedin = true
