@@ -63,50 +63,43 @@ snippetController.createSnippet = async (req, res, next) => {
 
 // update GET
 snippetController.update = async (req, res, next) => {
+  const snippets = await Snippets.findOne({ _id: req.params.id })
+  const locals = {
+    username: snippets.username,
+    id: snippets._id,
+    newSnippet: snippets.snippet,
+    title: snippets.title
+  }
   if (req.session.signedin) {
-    try {
-      const snippets = await Snippets.findOne({ _id: req.params.id })
-      const locals = {
-        username: snippets.username,
-        id: snippets._id,
-        newSnippet: snippets.snippet,
-        title: snippets.title
-      }
-      res.render('snippets/update', locals)
-    } catch (error) {
-      req.session.flash = {
-        type: 'danger',
-        message: error.message + 'You must sign in to edit' }
-      res.redirect('/')
+    res.render('snippets/update', locals)
+  } else {
+    req.session.flash = {
+      type: 'danger',
+      message: 'You must sign in to edit'
     }
+    res.redirect('/')
   }
 }
+
 // update POST
-snippetController.updateSnippet = async (req, res, next) => {
-  if (req.session.username === req.body.username) {
-    try {
-      const result = await Snippets.updateOne({ _id: req.body.id }, {
-        snippet: req.body.newSnippet,
-        title: req.body.title
-      })
-      if (result.nModified === 1 && req.session.username === req.body.username) {
-        res.redirect('/snippets')
-        req.session.flash = {
-          type: 'success',
-          message: 'Snippet was successfully updated.' }
-      } else {
-        req.session.flash = {
-          type: 'danger',
-          message: 'The Snippet you attempted to update has been removed.'
-        }
-        res.redirect('/')
+snippetController.updateSnippet = function (req, res) {
+  if (req.session.signedin) {
+    Snippets.updateOne({ _id: req.params.id }, { snippet: req.body.newSnippet }, (err, updatedSnippet, next) => {
+      if (err) {
+        next(err)
       }
-    } catch (error) {
       req.session.flash = {
-        type: 'danger',
-        message: error.message + 'This snippet is not yours' }
-      res.redirect(`./update/${req.body.id}`)
+        type: 'success',
+        message: 'Snippet was updated'
+      }
+      res.redirect('/snippets')
+    })
+  } else {
+    req.session.flash = {
+      type: 'danger',
+      message: 'You need to be logged in to update your snippet'
     }
+    res.redirect('../')
   }
 }
 // delete GET
