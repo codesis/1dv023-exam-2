@@ -83,7 +83,7 @@ snippetController.update = async (req, res, next) => {
 
 // update POST
 snippetController.updateSnippet = function (req, res) {
-  if (req.session.signedin) {
+  if (req.session.username) {
     Snippets.updateOne({ _id: req.params.id }, { snippet: req.body.snippet }, (err, updatedSnippet, next) => {
       if (err) {
         next(err)

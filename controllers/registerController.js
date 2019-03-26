@@ -8,10 +8,11 @@ registerController.index = async (req, res, next) => {
   try {
     const user = new NewUser({
       username: req.body.username,
+      name: req.body.name,
       email: req.body.email,
       password: req.body.password
     })
-    res.render('home/register', { user })
+    res.render('signin/createsignin', { user })
   } catch (error) {
     next(error)
   }
@@ -21,6 +22,7 @@ registerController.indexPost = (req, res, next) => {
   // creating new user from input
   const user = new NewUser({
     username: req.body.username,
+    name: req.body.name,
     email: req.body.email,
     password: req.body.password
   })
