@@ -35,7 +35,7 @@ snippetController.create = async (req, res, next) => {
       type: 'danger',
       message: 'You have to sign in to create a snippet'
     }
-    res.redirect('/')
+    res.render('errors/401')
   }
 }
 // create POST
@@ -70,12 +70,13 @@ snippetController.update = async (req, res, next) => {
     snippet: snippets.snippet,
     title: snippets.title
   }
-  if (req.session.signedin) {
+  // if the signed in user is the same who made the snippet, let change be made
+  if (req.session.signedin && req.session.username === locals.username) {
     res.render('snippets/update', locals)
   } else {
     req.session.flash = {
       type: 'danger',
-      message: 'You must sign in to edit'
+      message: 'This is not your snippet!'
     }
     res.redirect('/')
   }
@@ -95,11 +96,11 @@ snippetController.updateSnippet = function (req, res) {
       res.redirect('/snippets')
     })
   } else {
+    res.render('errors/403')
     req.session.flash = {
       type: 'danger',
-      message: 'You need to be logged in to update your snippet'
+      message: 'This is not your snippet'
     }
-    res.redirect('../')
   }
 }
 // delete GET
