@@ -50,7 +50,7 @@ registerController.indexPost = (req, res, next) => {
       } else {
         req.session.flash = {
           type: 'danger',
-          message: err.message
+          message: 'Username taken, try another!'
         }
       }
       res.redirect('/register')
