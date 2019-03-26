@@ -25,6 +25,8 @@ html {
 body {
     padding-top: 0;
     background-image: url(../images/bg.jpg);
+    background-size: 130%;
+    background-position: top;
 }
 
 .row {
@@ -143,8 +145,14 @@ pre {
 
 #flash {
     text-align: center;
-    font-weight: bold;
     font-size: 20px;
+    padding-top: 5%;
+}
+.alert.success {
+    color: green;
+}
+.alert.danger {
+    color: red;
 }
 .signin-button, .createuser-button {
     padding: 1.2%;
