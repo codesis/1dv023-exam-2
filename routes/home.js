@@ -10,9 +10,6 @@ router.route('/').get(function (req, res) {
   res.render('home/index')
 })
 
-// Login user
-router.post('/signin', homeController.index)
-
 // Logout user by destroy session
 router.get('/signout', homeController.signOut)
 

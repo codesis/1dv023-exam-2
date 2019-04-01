@@ -91,16 +91,10 @@ pre {
 
 .snippets {
     width: 600px;
-    margin: 0 auto;
-}
-
-.snippets input[type=text] {
-    width: 100%;
     background: transparent;
     border: none;
     padding: 12px 20px;
-    border-bottom: 1px solid #000000;
-    margin-bottom: 15px;
+    margin: 0 auto;
 }
 
 .snippets textarea {

@@ -5,6 +5,7 @@ const path = require('path')
 const hbs = require('express-handlebars')
 const session = require('express-session')
 const logger = require('morgan')
+const helmet = require('helmet')
 const bodyParser = require('body-parser')
 const mongoose = require('./config/mongoose')
 const app = express()
@@ -16,7 +17,7 @@ mongoose.connect().catch(error => {
   process.exit(1)
 })
 // --------CONFIGURATIONS--------------
-
+app.use(helmet())
 app.engine('.hbs', hbs({
   defaultLayout: 'main',
   extname: '.hbs'
@@ -40,7 +41,8 @@ app.use(session({
   cookie: {
     secure: false,
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 // 1 day
+    sameSite: 'lax',
+    maxAge: 3600000 // 1 hour to highten security
   }
 }))
 // Middleware + Flash messages
@@ -58,6 +60,7 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/home.js'))
 app.use('/', require('./routes/snippets.js'))
 app.use('/', require('./routes/register.js'))
+app.use('/', require('./routes/userSession.js'))
 // catch 404
 app.use((req, res) => {
   res.status(404).render('errors/404')

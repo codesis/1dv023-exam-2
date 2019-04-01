@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 
 // Mongoose model for user
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
+  username: { type: String, required: true, maxlength: 20, unique: true },
   name: { type: String, required: true, maxlength: 30 },
   email: { type: String, required: true },
   password: { type: String, required: true, minlength: 7 }

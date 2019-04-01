@@ -35,13 +35,12 @@ sessionController.authorization = async (req, res) => { // login user
         } else {
           req.session.flash = {
             type: 'success',
-            message: 'You are signed in!'
+            message: 'Welcome ' + req.body.username + ' You are signed in!'
           }
-          req.render('partials/nav', req.session.username)
           req.session.user = user
           req.session.username = req.body.username
           req.session.signedin = true
-          res.redirect('../view')
+          res.redirect('../snippets')
         }
       })
     }

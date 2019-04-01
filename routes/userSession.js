@@ -5,7 +5,7 @@ const express = require('express')
 const router = express.Router()
 const sessionController = require('../controllers/sessionController')
 
-router.post('/', sessionController.index)
+router.post('/signin', sessionController.authorization)
 
 router.get('/signout', sessionController.signOut)
 
